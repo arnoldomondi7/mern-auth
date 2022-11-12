@@ -44,7 +44,7 @@ export const createUser = async (req, res) => {
         await user.save()
 
         //send success to the user.
-        res.json({
+        res.status(201).json({
             message: `${name}, was successfully siged up`
         })
     } catch (error) {
@@ -74,7 +74,7 @@ export const userById = async (req, res, next, id) => {
         const user = await User.findById(id)
 
         //handle the error i
-        if (user) {
+        if (!user) {
             return res.json({
                 error: 'User Not Found'
             })

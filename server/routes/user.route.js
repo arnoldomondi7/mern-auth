@@ -11,9 +11,10 @@ import {
     userById
 } from '../controllers/user.contoller'
 
-//middlewares to handle.
-import { hasAuthorization, requireSignIn } from '../controllers/auth.controller'
 
+//middlewares to handle.
+
+import { hasAuthorization, requireSignIn } from '../middlewares/auth.middleware'
 const router = express.Router()
 
 //sign up

@@ -2,7 +2,7 @@ import User from '../models/user.model'
 import { comparePassword } from '../helpers/auth.helper'
 import jwt from 'jsonwebtoken'
 import config from '../config/config.config'
-import { expressjwt } from "express-jwt"
+
 
 
 //sign in user.
@@ -10,10 +10,9 @@ export const signIn = async (req, res) => {
     //destructure the details from the frontend
     const { email, password } = req.body
 
-
     try {
         //check to ensure that the email exists.
-        const user = User.findOne({ email })
+        const user = await User.findOne({ email })
 
         //handle the error to ensure that the emaul exists.
         if (!user) {
@@ -61,24 +60,4 @@ export const signOut = async (req, res) => {
         message: 'User Was Signed Out'
     })
 }
-//require signin.
-export const requireSignIn = expressjwt({
-    secret: "shhhhhhared-secret",
-    algorithms: ["HS256"],
-})
-//hasAuthorization.
-export const hasAuthorization = async (req, res, next) => {
 
-    //profule, auth, profule._id = profile.auth
-    const authorized = req.profile && req.auth && req.profile._id == req.auth._id
-
-    //handle error if user is not authorized..
-    if (!authorized) {
-        return res.status('403').json({
-            error: 'User Is Not Authorized To Access This Resource'
-        })
-    }
-
-    next()
-
-}
