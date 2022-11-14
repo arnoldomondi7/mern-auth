@@ -82,7 +82,6 @@ export const userById = async (req, res, next, id) => {
 
         //what to do, if the user was found.
         //create the req.profile then connect to the user.
-
         req.profile = user
 
         //go to the next function.
@@ -118,12 +117,12 @@ export const updateUser = async (req, res) => {
         user.updated = Date.now()
         //save the user
         await user.save()
+
         //sanitize the password.
         user.password = undefined
 
         //send the response to the frontend.
         res.json(user)
-
 
     } catch (error) {
         return res.status(400).json({
