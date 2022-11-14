@@ -3,6 +3,7 @@ import User from '../models/user.model'
 import _ from 'lodash'
 
 export const createUser = async (req, res) => {
+
     //get data from the frontend.
     const { name, email, password } = req.body
 

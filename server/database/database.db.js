@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import config from '../config/config.config'
 
-
 const connetToDb = () => {
     try {
         mongoose.connect(config.mongoUri)

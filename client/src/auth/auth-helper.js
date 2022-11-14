@@ -1,4 +1,3 @@
-import { signout } from './api-auth.js'
 
 const auth = {
     //to access sensitive routes
@@ -14,9 +13,9 @@ const auth = {
     },
     //save token when user signs in
     authenticate(jwt, next) {
-        if (typeof window !== "undefined") {
+        if (typeof window !== "undefined")
             sessionStorage.setItem('jwt', JSON.stringify(jwt))
-        }
+
         next()
     },
     clearJWT(next) {
@@ -24,9 +23,7 @@ const auth = {
             sessionStorage.removeItem('jwt')
         next()
         //optional
-        signout().then((data) => {
-            document.cookie = "t=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-        })
+
     }
 }
 

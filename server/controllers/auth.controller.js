@@ -7,6 +7,7 @@ import config from '../config/config.config'
 
 //sign in user.
 export const signIn = async (req, res) => {
+
     //destructure the details from the frontend
     const { email, password } = req.body
 

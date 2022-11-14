@@ -43,7 +43,7 @@ const Users = () => {
         color: theme.palette.openTitle
       }}>All Users</Typography>
       <List dense>
-        {users.map((item, i) => {
+        {!users.length ? 'There Is No Registered User' : users.map((item, i) => {
           return (
             <Link to={`/user/${item._id}`} key={i} style={{ textDecoration: 'none' }}>
               <ListItemButton>
