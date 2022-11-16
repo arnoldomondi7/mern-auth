@@ -1,4 +1,4 @@
-
+import axios from 'axios'
 const auth = {
     //to access sensitive routes
     //to ensure that the user is actually signed in.
@@ -23,7 +23,9 @@ const auth = {
             sessionStorage.removeItem('jwt')
         next()
         //optional
-
+        axios.get(`${process.env.REACT_APP_API}/signout`).then(({ data }) => {
+            document.cookie = "t=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+        })
     }
 }
 

@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { Button, Card, CardActions, CardContent, Box, TextField, Typography } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
 import theme from '../../theme'
+import auth from '../../auth/auth-helper'
 
 
 const Signup = () => {
+
+
+
+    useEffect(() => {
+        //redirect to the home page if signed in.
+        if (auth.isAuthenticated()) {
+            navigate('/')
+        }
+    })
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -14,6 +24,7 @@ const Signup = () => {
 
     //activate the hook.
     let navigate = useNavigate()
+
 
     //function to handle when, form is submitted.
     const handleSubmit = async (event) => {
@@ -40,6 +51,10 @@ const Signup = () => {
             console.log(error)
         }
 
+    }
+
+    if (auth.isAuthenticated()) {
+        <Navigate to='/' />
     }
     return (
         <div>

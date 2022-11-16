@@ -3,7 +3,7 @@ import auth from './auth-helper'
 
 const PrivateRoute = () => {
     return (
-        auth.isAuthenticated ? <Outlet /> : <Navigate to='/signin' />
+        auth.isAuthenticated() ? <Outlet /> : <Navigate to='/signin' />
     )
 }
 

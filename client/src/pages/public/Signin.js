@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import {
@@ -10,7 +10,7 @@ import {
     TextField,
     Typography
 } from '@mui/material'
-import { useNavigate, Navigate } from 'react-router-dom'
+import { useNavigate, } from 'react-router-dom'
 import theme from '../../theme'
 import auth from '../../auth/auth-helper'
 
@@ -19,6 +19,14 @@ const Signin = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
+
+
+    useEffect(() => {
+        //redirect to the home page if signed in.
+        if (auth.isAuthenticated()) {
+            navigate('/')
+        }
+    })
 
     //activate the hook.
     let navigate = useNavigate()
@@ -55,10 +63,7 @@ const Signin = () => {
 
     }
 
-    //redirect to the home page if signed in.
-    if (auth.isAuthenticated()) {
-        <Navigate to='/home' />
-    }
+
     return (
         <div>
 

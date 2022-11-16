@@ -9,7 +9,7 @@ const router = express.Router()
 router.route('/signin').post(signIn)
 
 //user signout
-router.route('/signin').post(signOut)
+router.route('/signout').get(signOut)
 
 //export the route.
 
