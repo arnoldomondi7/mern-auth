@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import auth from '../../auth/auth-helper'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import {
+    useParams,
+    useNavigate,
+    Link
+} from 'react-router-dom'
 import axios from 'axios'
 import {
     Avatar,
@@ -46,11 +50,14 @@ function Profile() {
                         Authorization: `Bearer ${jwt.token}`
                     }
                 })
+
                 //handle the error messages.
                 if (data && data.error) {
+
                     //redirect the user to the sign in page.
                     return navigate('/signin')
                 }
+
                 //update the userState with this data.
                 setUser(data)
 
@@ -58,6 +65,7 @@ function Profile() {
                 console.log(error.message)
             }
         }
+
         getSingleUser(signal)
 
         //clean up the function.
@@ -69,8 +77,9 @@ function Profile() {
 
 
     return (
+
         <Paper sx={{
-            maxWidth: 700,
+            maxWidth: 600,
             margin: 'auto',
             padding: theme.spacing(3),
             marginTop: theme.spacing(5)
@@ -78,7 +87,9 @@ function Profile() {
             <Typography variant='h6' sx={{
                 marginTop: theme.spacing(3),
                 color: theme.palette.primary.dark
-            }}>Profile</Typography>
+            }}>
+                Profile
+            </Typography>
             <List dense>
                 <ListItem>
                     <ListItemAvatar>
@@ -87,18 +98,18 @@ function Profile() {
                         </Avatar>
                     </ListItemAvatar>
                     <ListItemText primary={user.name} secondary={user.email} />{
+
+                        //compare if the id of the user is same as the
+                        //is the same as the id of the data being displayed
                         auth.isAuthenticated().user && auth.isAuthenticated().user._id ===
                         user._id && (
                             <ListItemSecondaryAction>
                                 <Link to={`/user/edit/${user._id}`}>
-                                    <IconButton aria-label='Edit' color='primary'>
+                                    <IconButton aria-label='Edit' >
                                         <EditIcon style={{ color: '#1DB954' }} />
                                     </IconButton>
                                 </Link>
-
                                 <DeleteUser userId={user._id} />
-
-
                             </ListItemSecondaryAction>
                         )
                     }

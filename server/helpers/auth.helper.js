@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
 export const hashPassword = (password) => {
     return new Promise((resolve, reject) => {
         bcrypt.genSalt(12, (error, salt) => {
+
             //handle the error.
             if (error) {
                 return reject(error)
@@ -11,6 +12,7 @@ export const hashPassword = (password) => {
 
             //hash the password.
             bcrypt.hash(password, salt, (error, hash) => {
+
                 //handle the error
                 if (error) {
                     return reject(error)

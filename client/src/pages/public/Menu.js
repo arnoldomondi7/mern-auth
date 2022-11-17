@@ -4,28 +4,28 @@ import {
     Button,
     IconButton,
     Toolbar,
+    Tooltip,
     Typography
 } from '@mui/material'
 import { NavLink, useNavigate } from 'react-router-dom'
 import HomeIcon from '@mui/icons-material/Home'
 import auth from '../../auth/auth-helper'
 
-
 const Menu = () => {
 
-
+    //active style
     let activeStyle = {
         textDecoration: "none",
         color: '#ff4081'
     }
 
-    let activeClassName = {
+    //not active
+    let normalStyle = {
         color: '#fff',
         textDecoration: "none",
     }
 
     const navigate = useNavigate()
-
 
     return (
         <AppBar position='static'>
@@ -34,14 +34,17 @@ const Menu = () => {
                     MERN Social
                 </Typography>
                 <NavLink to="/" style={({ isActive }) =>
-                    isActive ? activeStyle : activeClassName
+                    isActive ? activeStyle : normalStyle
                 }>
                     <IconButton aria-label="Home" color='inherit' >
-                        <HomeIcon />
+                        <Tooltip title='home' arrow placement='top-end'>
+                            <HomeIcon />
+                        </Tooltip>
+
                     </IconButton>
                 </NavLink>
                 <NavLink to='/users' style={({ isActive }) =>
-                    isActive ? activeStyle : activeClassName
+                    isActive ? activeStyle : normalStyle
                 } >
                     <Button color='inherit' >Users</Button>
                 </NavLink>
@@ -50,12 +53,12 @@ const Menu = () => {
                     !auth.isAuthenticated() && (
                         <span>
                             <NavLink to='/signup' style={({ isActive }) =>
-                                isActive ? activeStyle : activeClassName
+                                isActive ? activeStyle : normalStyle
                             }  >
                                 <Button color='inherit'>Sign Up</Button>
                             </NavLink>
                             <NavLink to='/signin' style={({ isActive }) =>
-                                isActive ? activeStyle : activeClassName
+                                isActive ? activeStyle : normalStyle
                             }>
                                 <Button st color='inherit'>Sign In</Button>
                             </NavLink>
@@ -67,10 +70,10 @@ const Menu = () => {
                     auth.isAuthenticated() && (
                         <span>
                             <NavLink to={"/user/" + auth.isAuthenticated().user._id} style={({ isActive }) =>
-                                isActive ? activeStyle : activeClassName
+                                isActive ? activeStyle : normalStyle
                             }>
                                 <Button color='inherit' >
-                                    My Profile
+                                    Profile
                                 </Button>
                             </NavLink>
 

@@ -8,15 +8,13 @@ const theme = createTheme({
             dark: '#2e355b',
             contrastText: '#fff'
         },
-
+        secondary: {
+            light: '#ff79bo',
+            main: '#ff4081',
+            dark: '#c60055',
+            contrastText: '#fff'
+        },
     },
-    secondary: {
-        light: '#ff79bo',
-        main: '#ff4081',
-        dark: '#c60055',
-        contrastText: '#fff'
-    },
-
 })
 
 export default theme

@@ -14,16 +14,21 @@ const MainRouter = () => {
         <>
             <Menu />
             <Routes>
+
+                {/* public route */}
+                <Route path='/users' element={<Users />} />
+                <Route path='/signup' element={<Signup />} />
+                <Route path='/signin' element={<Signin />} />
+
+
+                {/* authenticated user route */}
+                <Route path='/user/:userId' element={<Profile />} />
+                <Route path='/' element={<Home />} />
+
                 {/* private route */}
                 <Route element={<PrivateRoute />}>
                     <Route path='/user/edit/:userId' element={<Edit />} />
                 </Route>
-                <Route path='/' element={<Home />} />
-                <Route path='/users' element={<Users />} />
-                <Route path='/signup' element={<Signup />} />
-                <Route path='/signin' element={<Signin />} />
-                <Route path='/user/:userId' element={<Profile />} />
-
 
             </Routes>
         </>

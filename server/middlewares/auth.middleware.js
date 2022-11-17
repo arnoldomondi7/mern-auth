@@ -10,16 +10,16 @@ export const requireSignIn = expressjwt({
 //hasAuthorization.
 export const hasAuthorization = async (req, res, next) => {
 
-    //profule, auth, profule._id = profile.auth
+    //req.(profule, auth, profile._id == auth._id)
     const authorized = req.profile && req.auth && req.profile._id == req.auth._id
 
     //handle error if user is not authorized..
     if (!authorized) {
-        return res.status('403').json({
+        return res.status(403).json({
             error: 'User Is Not Authorized To Access This Resource'
         })
     }
 
+    //if user is authorized grant access to the resource.
     next()
-
 }

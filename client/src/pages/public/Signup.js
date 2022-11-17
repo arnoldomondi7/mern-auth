@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { Button, Card, CardActions, CardContent, Box, TextField, Typography } from '@mui/material'
-import { useNavigate, Navigate } from 'react-router-dom'
+import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    Box,
+    TextField,
+    Typography
+} from '@mui/material'
+import { useNavigate, } from 'react-router-dom'
 import theme from '../../theme'
 import auth from '../../auth/auth-helper'
 
 
 const Signup = () => {
-
-
 
     useEffect(() => {
         //redirect to the home page if signed in.
@@ -17,6 +23,7 @@ const Signup = () => {
             navigate('/')
         }
     })
+
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -24,7 +31,6 @@ const Signup = () => {
 
     //activate the hook.
     let navigate = useNavigate()
-
 
     //function to handle when, form is submitted.
     const handleSubmit = async (event) => {
@@ -44,6 +50,7 @@ const Signup = () => {
             setPassword('')
             setLoading(false)
             toast.info(data.message)
+
             //redirect to the sign in.
             navigate('/signin')
         } catch (error) {
@@ -53,12 +60,8 @@ const Signup = () => {
 
     }
 
-    if (auth.isAuthenticated()) {
-        <Navigate to='/' />
-    }
     return (
         <div>
-
             <Card sx={{
                 maxWidth: 600,
                 margin: 'auto',
@@ -69,14 +72,17 @@ const Signup = () => {
                 <CardContent>
                     <Typography sx={{
                         marginTop: theme.spacing(2),
-                        color: theme.palette.openTitle
-                    }}>Sign Up</Typography>
+                        color: theme.palette.primary.light
+                    }}
+                        variant='h6'>
+                        Register
+                    </Typography>
                     <TextField
                         type='text'
                         sx={{
                             marginLeft: theme.spacing(1),
                             marginRight: theme.spacing(1),
-                            width: 300
+                            width: 350
                         }}
                         id='name'
                         label='Name'
@@ -91,7 +97,7 @@ const Signup = () => {
                         sx={{
                             marginLeft: theme.spacing(1),
                             marginRight: theme.spacing(1),
-                            width: 300
+                            width: 350
                         }}
                         id='email'
                         label='Email'
@@ -106,7 +112,7 @@ const Signup = () => {
                         sx={{
                             marginLeft: theme.spacing(1),
                             marginRight: theme.spacing(1),
-                            width: 300
+                            width: 350
                         }}
                         id='password'
                         label='Password'
@@ -123,7 +129,6 @@ const Signup = () => {
                         marginBottom: theme.spacing(2)
                     }}>
                         <Button
-
                             color='primary'
                             variant='contained'
                             onClick={handleSubmit}>

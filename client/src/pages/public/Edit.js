@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import {
+    useParams,
+    useNavigate
+} from 'react-router-dom'
 import auth from '../../auth/auth-helper'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { Button, Card, CardActions, CardContent, TextField, Typography } from '@mui/material'
+import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    TextField,
+    Typography
+} from '@mui/material'
 import theme from '../../theme'
 
 const Edit = () => {
+
     //handle the state.
     const [name, setName] = useState('')
     const [loading, setLoading] = useState(false)
+
     //handle the param.
     const { userId } = useParams()
     const navigate = useNavigate()
@@ -18,11 +30,14 @@ const Edit = () => {
     const jwt = auth.isAuthenticated()
 
     useEffect(() => {
+
         //redirect to the home page if signed in.
         if (!auth.isAuthenticated()) {
             navigate('/signin')
         }
     })
+
+    //prepopulate the request with data
     useEffect(() => {
         const abortController = new AbortController()
         const signal = abortController.signal
@@ -31,20 +46,22 @@ const Edit = () => {
         const getSingleUser = async () => {
             try {
                 const { data } = await axios.get(`${process.env.REACT_APP_API}/user/${userId}`, {
+
                     //pass the tokens.
                     headers: {
                         Authorization: `Bearer ${jwt.token}`
                     }
                 })
+
                 //handle the error messages.
                 if (data && data.error) {
+
                     //redirect the user to the sign in page.
                     toast.info(data.error)
                 }
+
                 //update the userState with this data.
-
                 setName(data.name)
-
 
             } catch (error) {
                 console.log(error.message)
@@ -58,17 +75,19 @@ const Edit = () => {
         }
     }, [jwt.token, navigate, userId])
 
-
-
     //code to handle the function when its submitted.
-    const handleSubmit = async () => {
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+
         const jwt = auth.isAuthenticated()
 
         setLoading(true)
+
         //api to update the data.
         const { data } = await axios.put(`${process.env.REACT_APP_API}/user/${userId}`, {
             name
         }, {
+
             //pass the tokens.
             headers: {
                 Authorization: `Bearer ${jwt.token}`
@@ -78,14 +97,13 @@ const Edit = () => {
         if (data && data.error) {
             setLoading(false)
             setName('')
-
             return toast.error(data.error)
         }
         setLoading(false)
         toast.success('User Was Successfully Updated')
         navigate(`/user/${userId}`)
-
     }
+
     return (
         <Card sx={{
             maxWidth: 600,
@@ -95,12 +113,12 @@ const Edit = () => {
             paddingBottom: theme.spacing(2)
         }}>
             <CardContent>
-                <Typography> Edit Page</Typography>
+                <Typography> Edit</Typography>
                 <TextField
                     sx={{
                         marginLeft: theme.spacing(1),
                         marginRight: theme.spacing(1),
-                        width: 300
+                        width: 350
                     }}
                     label='Name'
                     type='text'
@@ -110,8 +128,6 @@ const Edit = () => {
 
                 />
                 <br />
-
-
             </CardContent>
             <CardActions>
                 <Button
@@ -126,7 +142,6 @@ const Edit = () => {
                     {loading ? 'Working On It...' : 'Update User'}
                 </Button>
             </CardActions>
-
         </Card>
     )
 }

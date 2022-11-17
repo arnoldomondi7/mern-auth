@@ -14,14 +14,13 @@ import { useNavigate, } from 'react-router-dom'
 import theme from '../../theme'
 import auth from '../../auth/auth-helper'
 
-
 const Signin = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
 
-
     useEffect(() => {
+
         //redirect to the home page if signed in.
         if (auth.isAuthenticated()) {
             navigate('/')
@@ -42,31 +41,28 @@ const Signin = () => {
 
             //handle the error.
             if (data.error) {
+                setLoading(false)
                 return toast.error(data.error)
             }
+            //save the token and user info (data) in the local storage.
             auth.authenticate(data, () => {
                 setEmail('')
                 setPassword('')
                 setLoading(false)
                 toast.info(`${data.user.name}, Was Successfully Signed In. `)
-
             })
 
-            //redirect to the sign in.
+            //redirect to the home page.
             navigate('/')
 
         } catch (error) {
             setLoading(false)
             console.log(error)
-
         }
-
     }
-
 
     return (
         <div>
-
             <Card sx={{
                 maxWidth: 600,
                 margin: 'auto',
@@ -77,16 +73,15 @@ const Signin = () => {
                 <CardContent>
                     <Typography sx={{
                         marginTop: theme.spacing(2),
-                        color: theme.palette.openTitle
-                    }}>Sign In</Typography>
-
+                        color: theme.palette.primary.light
+                    }} variant='h6'>Sign In</Typography>
 
                     <TextField
                         type='email'
                         sx={{
                             marginLeft: theme.spacing(1),
                             marginRight: theme.spacing(1),
-                            width: 300
+                            width: 350
                         }}
                         id='email'
                         label='Email'
@@ -95,13 +90,12 @@ const Signin = () => {
                         margin='normal'
                     />
                     <br />
-
                     <TextField
                         type='password'
                         sx={{
                             marginLeft: theme.spacing(1),
                             marginRight: theme.spacing(1),
-                            width: 300
+                            width: 350
                         }}
                         id='password'
                         label='Password'
@@ -118,7 +112,6 @@ const Signin = () => {
                         marginBottom: theme.spacing(2)
                     }}>
                         <Button
-
                             color='primary'
                             variant='contained'
                             onClick={handleSubmit}>

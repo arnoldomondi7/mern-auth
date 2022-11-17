@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Avatar, IconButton, List, ListItemAvatar, ListItemButton, ListItemSecondaryAction, ListItemText, Paper, Typography } from '@mui/material'
+import {
+  Avatar,
+  IconButton,
+  List,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemSecondaryAction,
+  ListItemText,
+  Paper,
+  Typography
+} from '@mui/material'
 import { Link } from 'react-router-dom'
 import PersonIcon from '@mui/icons-material/Person'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import theme from '../../theme'
-
 
 const Users = () => {
   const [users, setUsers] = useState([])
@@ -39,8 +48,8 @@ const Users = () => {
       margin: theme.spacing(5)
     }}>
       <Typography variant='h6' sx={{
-        margin: `${theme.spacing(4)}px 0 ${theme.spacing(2)}px`,
-        color: theme.palette.openTitle
+        margin: 'auto',
+        color: theme.palette.secondary.main
       }}>All Users</Typography>
       <List dense>
         {!users.length ? 'There Is No Registered User' : users.map((item, i) => {
@@ -54,7 +63,7 @@ const Users = () => {
                 </ListItemAvatar>
                 <ListItemText primary={item.name} />
                 <ListItemSecondaryAction>
-                  <IconButton>
+                  <IconButton color='inherit'>
                     <ArrowForwardIcon />
                   </IconButton>
                 </ListItemSecondaryAction>

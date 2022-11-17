@@ -2,6 +2,7 @@ import { hashPassword } from '../helpers/auth.helper'
 import User from '../models/user.model'
 import _ from 'lodash'
 
+//create a new user
 export const createUser = async (req, res) => {
 
     //get data from the frontend.
@@ -16,7 +17,7 @@ export const createUser = async (req, res) => {
 
     if (!password || password.length < 8) {
         return res.json({
-            error: ''
+            error: 'Password Should Be At least 8 Characters'
         })
     }
 
@@ -34,7 +35,7 @@ export const createUser = async (req, res) => {
     const hashedPassword = await hashPassword(password)
 
     //if not, create a new user.
-    const user = User({
+    const user = new User({
         name,
         email,
         password: hashedPassword
@@ -55,8 +56,10 @@ export const createUser = async (req, res) => {
     }
 }
 
+//get all the users.
 export const getUsers = async (req, res) => {
     try {
+
         //get all the users.
         const users = await User.find().select('name email updated created')
 
@@ -69,8 +72,11 @@ export const getUsers = async (req, res) => {
     }
 }
 
+//this functions is to get the user.
+//specific user before you can perfom any operation to this user.
 export const userById = async (req, res, next, id) => {
     try {
+
         //find the user by id
         const user = await User.findById(id)
 
@@ -89,13 +95,16 @@ export const userById = async (req, res, next, id) => {
         next()
     } catch (error) {
         return res.json({
-            error: 'Unable To Load The Users.'
+            error: 'Unable To Load The User.'
         })
     }
 }
 
+//get the specific user to the frontend.
+//after it has passed the abcove check.
 export const getUser = async (req, res) => {
     try {
+
         //block the password.
         req.profile.password = undefined
 
@@ -108,14 +117,19 @@ export const getUser = async (req, res) => {
     }
 }
 
+//update the user.
 export const updateUser = async (req, res) => {
     try {
+
         //hold the users data in the req.profile
         let user = req.profile
+
         //use lodash to update.
         user = _.extend(user, req.body)
+
         //update the date.
         user.updated = Date.now()
+
         //save the user
         await user.save()
 
@@ -132,18 +146,23 @@ export const updateUser = async (req, res) => {
     }
 }
 
+//delete the user.
 export const deleteUser = async (req, res) => {
     try {
         let user = req.profile
         const deleteUser = await user.remove()
+
         //undefine the password.
         user.password = undefined
+
         //send the response to the user.
-        res.json(deleteUser)
+        res.json({
+            message: `${user.name}, was Deleted`
+        })
 
     } catch (error) {
         return res.status(400).json({
-            error: 'Faild To Update The User'
+            error: 'Faild To Delete The User'
         })
     }
 }

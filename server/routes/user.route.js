@@ -1,6 +1,5 @@
 import express from 'express'
 
-
 //controller function
 import {
     createUser,
@@ -11,10 +10,10 @@ import {
     userById
 } from '../controllers/user.contoller'
 
-
 //middlewares to handle.
 
 import { hasAuthorization, requireSignIn } from '../middlewares/auth.middleware'
+
 const router = express.Router()
 
 //sign up
@@ -27,6 +26,7 @@ router.route('/user/:userId')
     .get(requireSignIn, getUser)
     .put(requireSignIn, hasAuthorization, updateUser)
     .delete(requireSignIn, hasAuthorization, deleteUser)
+
 
 //handle the userId.
 router.param('userId', userById)

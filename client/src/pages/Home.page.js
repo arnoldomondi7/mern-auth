@@ -1,5 +1,10 @@
 import React from 'react'
-import { Card, CardContent, CardMedia, Typography } from '@mui/material'
+import {
+    Card,
+    CardContent,
+    CardMedia,
+    Typography
+} from '@mui/material'
 import Bike from '../assets/images/bike.jpg'
 import theme from '../theme'
 
@@ -14,8 +19,9 @@ const Home = () => {
             <Typography sx={{
                 padding: `${theme.spacing(3)}px ${theme.spacing(2.5)}px ${theme.spacing(2)}px`,
                 color: theme.palette.primary.dark
-            }} variant='h6'>Home Page</Typography>
-            <CardMedia sx={{ minHeight: 400 }} image={Bike} title='Sports Bike' />
+            }}
+                variant='h6'>Home Page</Typography>
+            <CardMedia sx={{ minHeight: 450 }} image={Bike} title='Sports Bike' />
             <Typography variant="body2" component="p" sx={{
                 padding: 1,
                 textAlign: 'right',
